@@ -138,8 +138,7 @@
             <input type="text" id="ownerNameInput" oninput="onOwnerNameChange()" placeholder="Ej: Jorge Sangolquí" class="bg-emerald-950 text-white font-semibold text-xs px-2.5 py-1 rounded-lg border border-emerald-700/80 outline-none focus:ring-1 focus:ring-amber-300 w-32 sm:w-36">
           </div>
 
-          <!-- BOTÓN MODO OSCURO -->
-          <button type="button" onclick="toggleDarkMode()" id="btnDarkMode" class="bg-emerald-700 hover:bg-emerald-600 text-emerald-100 text-xs font-semibold px-3 py-2 rounded-xl border border-emerald-600 transition flex items-center gap-1.5" title="Cambiar modo oscuro/claro">
+          <button type="button" onclick="toggleDarkMode()" id="btnDarkMode" class="bg-emerald-700 hover:bg-emerald-600 text-emerald-100 text-xs font-semibold px-3 py-2 rounded-xl border border-emerald-600 transition flex items-center gap-1.5">
             <i class="fa-solid fa-moon" id="darkModeIcon"></i>
             <span id="darkModeLabel">Modo Oscuro</span>
           </button>
@@ -173,7 +172,6 @@
       <!-- Banner Principal y Widget de Clima -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         
-        <!-- Info Principal -->
         <div class="lg:col-span-2 bg-gradient-to-r from-emerald-900/90 via-emerald-800/90 to-teal-900/90 backdrop-blur-md rounded-3xl p-6 text-white shadow-2xl relative overflow-hidden flex flex-col justify-between border border-emerald-700/40">
           <div class="absolute -right-8 -bottom-8 opacity-10 text-emerald-300 pointer-events-none">
             <i class="fa-solid fa-tree text-[200px]"></i>
@@ -214,7 +212,7 @@
           </div>
         </div>
 
-        <!-- WIDGET DE CLIMA EN TIEMPO REAL (SANGOLQUÍ) -->
+        <!-- WIDGET DE CLIMA -->
         <div class="bg-gradient-to-br from-slate-900/90 to-emerald-950/90 backdrop-blur-md text-white rounded-3xl p-5 shadow-2xl border border-emerald-800/80 flex flex-col justify-between">
           <div class="flex justify-between items-center border-b border-emerald-800/60 pb-3">
             <span class="text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
@@ -303,7 +301,7 @@
           </div>
         </div>
 
-        <!-- MÓDULO DESTACADO: PROYECTO ESPECIAL (4 JARDINERAS / SEMILLEROS CON ALERTAS Y FECHA EXACTA) -->
+        <!-- PROYECTO ESPECIAL -->
         <div class="bg-gradient-to-r from-amber-50/90 via-yellow-50/90 to-emerald-50/90 backdrop-blur-md border border-amber-200 rounded-2xl p-5 shadow-lg space-y-4">
           <div class="flex items-center gap-3 border-b border-amber-200/80 pb-3">
             <div class="bg-amber-500 text-slate-900 p-3 rounded-2xl font-black text-2xl flex items-center justify-center shadow-sm">
@@ -316,9 +314,7 @@
             </div>
           </div>
 
-          <div class="space-y-3" id="semillerosContainer">
-            <!-- Se generan dinámicamente mediante JS las 4 jardineras -->
-          </div>
+          <div class="space-y-3" id="semillerosContainer"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -564,10 +560,9 @@
         </div>
       </div>
 
-      <!-- MÓDULO: CONTROL FITOSANITARIO Y APLICACIONES -->
+      <!-- TAB 6: CONTROL FITOSANITARIO -->
       <div id="content-phytosanitary" class="tab-content hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
           <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
             <h3 id="phytoFormTitle" class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
               <i class="fa-solid fa-shield-halved text-emerald-600"></i> Registrar Tratamiento Fitosanitario
@@ -578,12 +573,12 @@
                 <input type="date" id="phytoDate" required class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
               </div>
               <div>
-                <label class="text-xs font-bold text-slate-700 block mb-1">Producto / Ingrediente (ej. Curacron):</label>
-                <input type="text" id="phytoProduct" required placeholder="Ej: Curacron (profenofos)" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
+                <label class="text-xs font-bold text-slate-700 block mb-1">Producto / Ingrediente:</label>
+                <input type="text" id="phytoProduct" required placeholder="Ej: Curacron / Topsin M / Solamina" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
               </div>
               <div>
-                <label class="text-xs font-bold text-slate-700 block mb-1">Plaga u Objetivo (ej. Arañas / Mosca blanca):</label>
-                <input type="text" id="phytoPest" required placeholder="Ej: Arañitas rojas y mosca blanca" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
+                <label class="text-xs font-bold text-slate-700 block mb-1">Plaga u Objetivo:</label>
+                <input type="text" id="phytoPest" required placeholder="Ej: Arañas, mosca blanca, trébol" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
               </div>
               <div>
                 <label class="text-xs font-bold text-slate-700 block mb-1">Plantas Tratadas:</label>
@@ -598,7 +593,7 @@
                 <button type="submit" id="phytoSubmitBtn" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
                   <i class="fa-solid fa-floppy-disk"></i> Guardar Tratamiento
                 </button>
-                <button type="button" id="phytoCancelBtn" onclick="cancelPhytoEdit()" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-3 rounded-xl transition text-xs" title="Cancelar edición">
+                <button type="button" id="phytoCancelBtn" onclick="cancelPhytoEdit()" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-3 rounded-xl transition text-xs">
                   <i class="fa-solid fa-xmark"></i>
                 </button>
               </div>
@@ -612,19 +607,15 @@
                   <i class="fa-solid fa-list text-emerald-600"></i> Historial Cloud Firestore (Sincronizado)
                 </h3>
               </div>
-              <div id="phytoTableContainer" class="overflow-x-auto">
-                <!-- Se llena en tiempo real desde Firebase -->
-              </div>
+              <div id="phytoTableContainer" class="overflow-x-auto"></div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- TAB 6: ÁLBUM DEL HUERTO -->
+      <!-- TAB 7: ÁLBUM DEL HUERTO -->
       <div id="content-gallery" class="tab-content hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
           <div id="galleryFormCard" class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200 transition-all duration-300">
             <h3 id="galleryFormTitle" class="text-base font-bold text-slate-800 mb-2 flex items-center gap-2">
               <i class="fa-solid fa-camera-retro text-emerald-600"></i> Agregar Foto al Álbum
@@ -648,7 +639,7 @@
                 </select>
               </div>
               <div>
-                <label class="text-xs font-bold text-slate-700 block mb-1">Mes y Año (Evolución):</label>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Mes y Año:</label>
                 <input type="text" id="galMonthYear" required placeholder="Ej: Septiembre 2026" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
               </div>
               <div>
@@ -695,19 +686,15 @@
                 </div>
               </div>
 
-              <div id="galleryGridContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Se llena mediante JS Firestore -->
-              </div>
+              <div id="galleryGridContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- TAB 7: CONTROL DE COSECHAS Y RENDIMIENTO -->
+      <!-- TAB 8: CONTROL DE COSECHAS -->
       <div id="content-harvest" class="tab-content hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
           <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
             <h3 id="harvestFormTitle" class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
               <i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Cosecha / Rendimiento
@@ -769,19 +756,15 @@
                   <i class="fa-solid fa-list text-emerald-600"></i> Historial de Productividad en Nube
                 </h3>
               </div>
-              <div id="harvestTableContainer" class="overflow-x-auto">
-                <!-- Se llena mediante JS Firestore -->
-              </div>
+              <div id="harvestTableContainer" class="overflow-x-auto"></div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- TAB 8: CONTROL DE GASTOS E INSUMOS -->
+      <!-- TAB 9: CONTROL DE GASTOS -->
       <div id="content-expenses" class="tab-content hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
           <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
             <h3 id="expFormTitle" class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
               <i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Nuevo Insumo / Gasto
@@ -838,19 +821,17 @@
                   <i class="fa-solid fa-list text-emerald-600"></i> Historial de Inversiones (Sincronizado)
                 </h3>
               </div>
-              <div id="expensesTableContainer" class="overflow-x-auto">
-                <!-- Se llena mediante JS Firestore -->
-              </div>
+              <div id="expensesTableContainer" class="overflow-x-auto"></div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- TAB 9: CONFIGURACIÓN & RESPALDOS -->
+      <!-- TAB 10: CONFIGURACIÓN & RESPALDOS (RESTAURADO COMPLETO) -->
       <div id="content-config" class="tab-content hidden space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           
+          <!-- Credenciales -->
           <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
             <h3 class="text-base font-bold text-slate-800 mb-4">Credenciales de Acceso</h3>
             <form onsubmit="handleUpdateCredentials(event)" class="space-y-3">
@@ -873,17 +854,28 @@
             </form>
           </div>
 
-          <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200 flex flex-col justify-between">
+          <!-- Sincronización y Respaldos JSON -->
+          <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200 flex flex-col justify-between space-y-4">
             <div>
-              <h3 class="text-base font-bold text-slate-800 mb-4">Sincronización Cloud Firestore</h3>
-              <div class="space-y-3.5 text-xs text-slate-600">
+              <h3 class="text-base font-bold text-slate-800 mb-4">Sincronización Cloud & Respaldos</h3>
+              <div class="space-y-3 text-xs text-slate-600">
                 <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-900 font-semibold">
-                  <i class="fa-solid fa-cloud text-emerald-600 mr-1"></i> Estado: Conectado a la Nube de Firebase (Sincronización automática activa).
+                  <i class="fa-solid fa-cloud text-emerald-600 mr-1"></i> Estado: Conectado a Firebase Cloud Firestore.
+                </div>
+                <p class="text-[11px] text-slate-500">Si lo deseas, también puedes descargar o restaurar una copia de seguridad local en formato JSON:</p>
+                <div class="flex gap-2 pt-2">
+                  <button type="button" onclick="downloadJSONBackup()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-2 px-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 shadow">
+                    <i class="fa-solid fa-download"></i> Descargar JSON
+                  </button>
+                  <label class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 shadow cursor-pointer text-center">
+                    <i class="fa-solid fa-upload"></i> Restaurar JSON
+                    <input type="file" id="importFile" accept=".json" onchange="importJSONBackup(event)" class="hidden">
+                  </label>
                 </div>
               </div>
             </div>
 
-            <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="pt-3 border-t border-slate-100">
               <button type="button" onclick="clearAllData()" class="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold py-2 rounded-xl transition text-xs flex items-center justify-center gap-2 border border-rose-200">
                 <i class="fa-solid fa-trash-can"></i> Cerrar Sesión Local
               </button>
@@ -931,9 +923,7 @@
 
   </div>
 
-  <!-- JavaScript con Sincronización en Tiempo Real Firebase Firestore -->
   <script>
-    // --- CREDENCIALES FIREBASE ---
     const firebaseConfig = {
       apiKey: "AIzaSyCP9aUqMxhzPtZ8m7HO1Usa-XcxCicO1tw",
       authDomain: "mi-jardin-app.firebaseapp.com",
@@ -943,7 +933,6 @@
       appId: "1:719572469469:web:2136d8ec2ed91d08cbbd34"
     };
 
-    // Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
@@ -961,7 +950,6 @@
     let currentLightboxIndex = 0;
     let currentFilteredGallery = [];
 
-    // Cache local de datos en tiempo real
     let cloudLogs = {};
     let cloudExpenses = [];
     let cloudHarvest = [];
@@ -1023,6 +1011,43 @@
       document.getElementById('configNewPass').value = '';
     }
 
+    // Funciones de Respaldo JSON Local
+    function downloadJSONBackup() {
+      const backupData = {
+        logs: cloudLogs,
+        expenses: cloudExpenses,
+        harvest: cloudHarvest,
+        phyto: cloudPhyto,
+        gallery: cloudGallery,
+        semilleros: cloudSemilleros
+      };
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "Respaldo_Huerto_Jorge.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importJSONBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (confirm('¿Restaurar los datos desde este archivo JSON a Firebase?')) {
+            if (data.semilleros) await db.collection("huertoData_semilleros").doc("estado_actual").set(data.semilleros);
+            alert('¡Respaldo JSON restaurado con éxito!');
+          }
+        } catch (err) {
+          alert('Error al leer el archivo JSON: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
     function toggleDarkMode() {
       const isDark = document.body.classList.toggle('dark-mode');
       localStorage.setItem(DARK_MODE_KEY, isDark ? 'true' : 'false');
@@ -1051,55 +1076,38 @@
       }
     }
 
-    // --- ESCUCHAS EN TIEMPO REAL DESDE FIRESTORE ---
     function initRealtimeListeners() {
-      // 1. Logs diarios y notas
       db.collection("huertoData_logs").onSnapshot(snapshot => {
         cloudLogs = {};
-        snapshot.forEach(doc => {
-          cloudLogs[doc.id] = doc.data();
-        });
+        snapshot.forEach(doc => { cloudLogs[doc.id] = doc.data(); });
         loadLogForSelectedDate();
         renderHistoryTable();
       });
 
-      // 2. Control Fitosanitario
       db.collection("huertoData_phytosanitary").onSnapshot(snapshot => {
         cloudPhyto = [];
-        snapshot.forEach(doc => {
-          cloudPhyto.push({ id: doc.id, ...doc.data() });
-        });
+        snapshot.forEach(doc => { cloudPhyto.push({ id: doc.id, ...doc.data() }); });
         renderPhytoUI();
       });
 
-      // 3. Gastos
       db.collection("huertoData_expenses").onSnapshot(snapshot => {
         cloudExpenses = [];
-        snapshot.forEach(doc => {
-          cloudExpenses.push({ id: doc.id, ...doc.data() });
-        });
+        snapshot.forEach(doc => { cloudExpenses.push({ id: doc.id, ...doc.data() }); });
         renderExpensesUI();
       });
 
-      // 4. Cosechas
       db.collection("huertoData_harvest").onSnapshot(snapshot => {
         cloudHarvest = [];
-        snapshot.forEach(doc => {
-          cloudHarvest.push({ id: doc.id, ...doc.data() });
-        });
+        snapshot.forEach(doc => { cloudHarvest.push({ id: doc.id, ...doc.data() }); });
         renderHarvestUI();
       });
 
-      // 5. Galería / Álbum
       db.collection("huertoData_gallery").onSnapshot(snapshot => {
         cloudGallery = [];
-        snapshot.forEach(doc => {
-          cloudGallery.push({ id: doc.id, ...doc.data() });
-        });
+        snapshot.forEach(doc => { cloudGallery.push({ id: doc.id, ...doc.data() }); });
         renderGalleryUI();
       });
 
-      // 6. Semilleros
       db.collection("huertoData_semilleros").doc("estado_actual").onSnapshot(doc => {
         if (doc.exists) {
           cloudSemilleros = doc.data();
@@ -1108,7 +1116,6 @@
       });
     }
 
-    // --- GESTIÓN FITOSANITARIA (NUBE) ---
     async function handleAddPhyto(e) {
       e.preventDefault();
       const date = document.getElementById('phytoDate').value;
@@ -1133,21 +1140,17 @@
           document.getElementById('phytoNotes').value = '';
           document.getElementById('phytoDate').value = new Date().toISOString().split('T')[0];
         }
-      } catch (err) {
-        alert('Error al guardar en Firebase: ' + err.message);
-      }
+      } catch (err) { alert('Error: ' + err.message); }
     }
 
     function startEditPhyto(id) {
       const item = cloudPhyto.find(i => i.id === id);
       if (!item) return;
-
       document.getElementById('phytoDate').value = item.date;
       document.getElementById('phytoProduct').value = item.product;
       document.getElementById('phytoPest').value = item.pest;
       document.getElementById('phytoPlants').value = item.plants;
       document.getElementById('phytoNotes').value = item.notes || '';
-
       currentEditingPhytoId = id;
       document.getElementById('phytoFormTitle').innerHTML = `<i class="fa-solid fa-pen-to-square text-amber-600"></i> Editar Tratamiento`;
       document.getElementById('phytoSubmitBtn').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Actualizar`;
@@ -1172,7 +1175,7 @@
         try {
           await db.collection("huertoData_phytosanitary").doc(id).delete();
           if (currentEditingPhytoId === id) cancelPhytoEdit();
-        } catch(err) { alert('Error al eliminar: ' + err.message); }
+        } catch(err) { alert('Error: ' + err.message); }
       }
     }
 
@@ -1182,7 +1185,6 @@
         container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay tratamientos registrados en la nube todavía.</div>`;
         return;
       }
-
       let sorted = [...cloudPhyto].sort((a, b) => new Date(b.date) - new Date(a.date));
       let html = `<table class="w-full text-left text-xs">
                     <thead>
@@ -1196,7 +1198,6 @@
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">`;
-
       sorted.forEach(item => {
         html += `<tr class="hover:bg-slate-50/80 transition">
                   <td class="p-2.5 font-bold text-slate-800">${item.date}</td>
@@ -1214,7 +1215,6 @@
       container.innerHTML = html;
     }
 
-    // --- GESTIÓN DE GALERÍA (NUBE) ---
     function compressImageFile(file, maxWidth, quality, callback) {
       const reader = new FileReader();
       reader.onload = function(event) {
@@ -1249,7 +1249,6 @@
       if (currentEditingGalleryId !== null) {
         const existing = cloudGallery.find(i => i.id === currentEditingGalleryId);
         if (!existing) return;
-
         const updateData = { crop, monthYear, desc };
         if (file) {
           compressImageFile(file, 280, 0.3, async function(base64Str) {
@@ -1285,7 +1284,6 @@
       document.getElementById('galDesc').value = item.desc || '';
       document.getElementById('galFileInput').value = '';
       currentEditingGalleryId = id;
-
       document.getElementById('galleryEditIndicator').classList.remove('hidden');
       document.getElementById('galleryEditIndicatorText').innerHTML = `<i class="fa-solid fa-pen-to-square text-amber-600 mr-1"></i> Editando: <strong>${item.crop}</strong>`;
       document.getElementById('galSubmitBtn').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Actualizar Foto`;
@@ -1308,7 +1306,7 @@
         try {
           await db.collection("huertoData_gallery").doc(id).delete();
           if (currentEditingGalleryId === id) cancelGalleryEdit();
-        } catch(err) { alert('Error al eliminar: ' + err.message); }
+        } catch(err) { alert('Error: ' + err.message); }
       }
     }
 
@@ -1341,15 +1339,12 @@
       const container = document.getElementById('galleryGridContainer');
       const filterCrop = document.getElementById('galFilterCrop').value;
       const countText = document.getElementById('galCountText');
-
       let filtered = filterCrop === 'ALL' ? cloudGallery : cloudGallery.filter(item => item.crop === filterCrop);
       if (countText) countText.innerText = `${filtered.length} foto${filtered.length === 1 ? '' : 's'}`;
-
       if (filtered.length === 0) {
         container.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 text-xs">No hay fotografías en la nube para esta especie.</div>`;
         return;
       }
-
       filtered.sort((a, b) => b.createdAt - a.createdAt);
       let html = '';
       filtered.forEach((item, index) => {
@@ -1376,7 +1371,6 @@
       container.innerHTML = html;
     }
 
-    // --- GESTIÓN DE COSECHAS (NUBE) ---
     async function handleAddHarvest(e) {
       e.preventDefault();
       const date = document.getElementById('harvDate').value;
@@ -1386,7 +1380,6 @@
       const notes = document.getElementById('harvNotes').value.trim();
 
       if(!date || !crop || quantity <= 0 || !season) return;
-
       try {
         if (currentEditingHarvestId !== null) {
           await db.collection("huertoData_harvest").doc(currentEditingHarvestId).update({ date, crop, quantity, season, notes });
@@ -1439,16 +1432,13 @@
     function renderHarvestUI() {
       const container = document.getElementById('harvestTableContainer');
       const totalEl = document.getElementById('totalHarvestAmount');
-
       let total = 0;
       cloudHarvest.forEach(item => total += item.quantity);
       totalEl.innerText = `${total.toFixed(1)} kg / und`;
-
       if(cloudHarvest.length === 0) {
         container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay cosechas registradas en la nube todavía.</div>`;
         return;
       }
-
       let sorted = [...cloudHarvest].sort((a, b) => new Date(b.date) - new Date(a.date));
       let html = `<table class="w-full text-left text-xs">
                     <thead>
@@ -1462,7 +1452,6 @@
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">`;
-
       sorted.forEach(item => {
         html += `<tr class="hover:bg-slate-50/80 transition">
                   <td class="p-2.5 font-bold text-slate-800">${item.date}</td>
@@ -1480,7 +1469,6 @@
       container.innerHTML = html;
     }
 
-    // --- GESTIÓN DE GASTOS (NUBE) ---
     async function handleAddExpense(e) {
       e.preventDefault();
       const date = document.getElementById('expDate').value;
@@ -1489,7 +1477,6 @@
       const amount = parseFloat(document.getElementById('expAmount').value) || 0;
 
       if(!date || !desc || amount <= 0) return;
-
       try {
         if (currentEditingExpenseId !== null) {
           await db.collection("huertoData_expenses").doc(currentEditingExpenseId).update({ date, category, desc, amount });
@@ -1541,16 +1528,13 @@
     function renderExpensesUI() {
       const container = document.getElementById('expensesTableContainer');
       const totalEl = document.getElementById('totalExpensesAmount');
-
       let total = 0;
       cloudExpenses.forEach(item => total += item.amount);
       totalEl.innerText = `$${total.toFixed(2)}`;
-
       if(cloudExpenses.length === 0) {
         container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay gastos registrados en la nube todavía.</div>`;
         return;
       }
-
       let sorted = [...cloudExpenses].sort((a, b) => new Date(b.date) - new Date(a.date));
       let html = `<table class="w-full text-left text-xs">
                     <thead>
@@ -1563,7 +1547,6 @@
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">`;
-
       sorted.forEach(item => {
         html += `<tr class="hover:bg-slate-50/80 transition">
                   <td class="p-2.5 font-bold text-slate-800">${item.date}</td>
@@ -1580,7 +1563,6 @@
       container.innerHTML = html;
     }
 
-    // --- CLIMA EN TIEMPO REAL ---
     async function fetchSangolquiWeather() {
       const tempEl = document.getElementById('weatherTemp');
       const condEl = document.getElementById('weatherCondition');
@@ -1604,7 +1586,6 @@
       return codes[code] || 'Clima estable';
     }
 
-    // --- SEMILLEROS ---
     function renderSemillerosUI() {
       const container = document.getElementById('semillerosContainer');
       let savedData = cloudSemilleros || {};
@@ -1670,13 +1651,11 @@
       try { await db.collection("huertoData_semilleros").doc("estado_actual").set(data); } catch(e){}
     }
 
-    // --- CHECKLIST DIARIO (NUBE) ---
     function loadLogForSelectedDate() {
       const selectedDate = document.getElementById('selectedDate').value;
       if (!selectedDate) return;
       const logData = cloudLogs[selectedDate];
       const checkboxes = document.querySelectorAll('.task-check');
-      
       if (logData) {
         checkboxes.forEach(cb => { cb.checked = !!(logData.tasks && logData.tasks[cb.getAttribute('data-id')]); });
         document.getElementById('dailyNotes').value = logData.notes || '';
@@ -1698,19 +1677,12 @@
         if (cb.checked) checkedCount++;
       });
       const percent = Math.round((checkedCount / checkboxes.length) * 100);
-      
-      const payload = {
-        date: selectedDate,
-        tasks: taskStates,
-        notes: document.getElementById('dailyNotes').value,
-        percent: percent
-      };
-
+      const payload = { date: selectedDate, tasks: taskStates, notes: document.getElementById('dailyNotes').value, percent: percent };
       try {
         await db.collection("huertoData_logs").doc(selectedDate).set(payload);
         updateProgress();
         if (showAlert) alert('¡Día guardado en la nube con éxito!');
-      } catch(err) { alert('Error al guardar: ' + err.message); }
+      } catch(err) { alert('Error: ' + err.message); }
     }
 
     function onTaskChange() { updateProgress(); saveCurrentDateState(false); }
@@ -1746,7 +1718,6 @@
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">`;
-
       filteredDates.forEach(d => {
         html += `<tr class="hover:bg-slate-50/80 transition">
                   <td class="p-2.5 font-bold text-slate-800">${d}</td>
@@ -1774,7 +1745,6 @@
       }
     }
 
-    // --- UTILIDADES GENERALES ---
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1873,7 +1843,7 @@
         document.getElementById('mainApp').classList.add('flex');
         initAppSession();
       } else {
-        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('mainApp').classList.add('hidden');
       }
     }
