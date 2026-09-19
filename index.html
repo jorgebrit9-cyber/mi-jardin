@@ -14,31 +14,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- FIREBASE SDKs (Modo Módulo) -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, setDoc, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCP9aUqMxhzPtZ8m7H01Usa-XcxCic01tw",
-      authDomain: "mi-jardin-app.firebaseapp.com",
-      projectId: "mi-jardin-app",
-      storageBucket: "mi-jardin-app.firebasestorage.app",
-      messagingSenderId: "338988358485",
-      appId: "1:338988358485:web:5739ef2a28178d8a7f9202"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Exponemos las funciones de Firebase globalmente para usarlas en la app
-    window.fbDb = db;
-    window.fbDocs = { collection, getDocs, setDoc, doc, getDoc, deleteDoc };
-    window.isFirebaseConnected = true;
-    console.log("Firebase conectado correctamente a la nube.");
-  </script>
-
   <style>
     body { 
       font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -101,7 +76,7 @@
       </div>
 
       <h2 class="text-2xl font-black text-slate-800 tracking-tight">Acceso Seguro</h2>
-      <p class="text-xs text-slate-500 mt-1 mb-6">El Huerto de Jorge • Sangolquí, Ecuador (Nube Firebase)</p>
+      <p class="text-xs text-slate-500 mt-1 mb-6">El Huerto de Jorge • Sangolquí, Ecuador</p>
 
       <form onsubmit="handleLogin(event)" class="space-y-4 text-left">
         <div>
@@ -148,7 +123,7 @@
           </div>
           <div>
             <h1 class="text-xl sm:text-2xl font-bold tracking-tight">El Huerto de Jorge</h1>
-            <p class="text-xs text-emerald-200 font-medium">Plan Agrícola & Sincronización Cloud • Sangolquí</p>
+            <p class="text-xs text-emerald-200 font-medium">Plan Agrícola & Respaldo Local • Sangolquí, Ecuador</p>
           </div>
         </div>
 
@@ -202,15 +177,15 @@
           <div>
             <div class="flex items-center gap-2 mb-2">
               <span class="bg-emerald-700/90 text-emerald-100 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-500/30">
-                <i class="fa-solid fa-location-dot text-amber-400 mr-1"></i> Sangolquí • Nube Activa
+                <i class="fa-solid fa-location-dot text-amber-400 mr-1"></i> Sangolquí • Verano Seco
               </span>
-              <button type="button" onclick="speakText('Bienvenido Jorge al plan de trabajo de tu huerto en la nube. Tus datos se sincronizan automáticamente.')" class="bg-emerald-700/60 hover:bg-emerald-600 text-amber-300 p-1.5 rounded-full text-xs transition" title="Escuchar bienvenida">
+              <button type="button" onclick="speakText('Bienvenido Jorge al plan de trabajo de tu huerto. Registra tu avance del día y tus datos quedarán protegidos.')" class="bg-emerald-700/60 hover:bg-emerald-600 text-amber-300 p-1.5 rounded-full text-xs transition" title="Escuchar bienvenida">
                 <i class="fa-solid fa-volume-high"></i>
               </button>
             </div>
-            <h2 class="text-2xl font-extrabold tracking-tight">Seguimiento Diario Sincronizado</h2>
+            <h2 class="text-2xl font-extrabold tracking-tight">Seguimiento Diario de Labores</h2>
             <p class="text-xs sm:text-sm text-emerald-100/90 mt-1.5 leading-relaxed">
-              Tus labores y registros se guardan en tiempo real en la nube de Firebase. Lo que anotes en el celular aparecerá en tu laptop al instante.
+              Mantén tus frutales, césped y semilleros en óptimo estado. Marca las tareas realizadas y tus registros quedarán guardados de forma permanente.
             </p>
           </div>
 
@@ -225,10 +200,10 @@
 
             <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/15 text-center flex flex-col justify-center">
               <span class="text-xs text-emerald-200 font-bold block mb-1 uppercase tracking-wider">
-                <i class="fa-solid fa-cloud text-amber-400"></i> Sincronización
+                <i class="fa-solid fa-sun text-amber-400"></i> Recomendación Sol
               </span>
               <p class="text-[11px] text-emerald-100 font-medium">
-                Conectado a Firebase Cloud Firestore.
+                Riega tus frutales pasadas las 5:00 PM para evitar evaporación.
               </p>
             </div>
           </div>
@@ -281,6 +256,9 @@
         <button type="button" onclick="switchTab('health')" id="tab-health" class="tab-btn py-3 px-4 border-b-2 font-bold text-xs sm:text-sm flex items-center gap-2 border-transparent text-slate-500 hover:text-emerald-700 whitespace-nowrap">
           <i class="fa-solid fa-calculator text-amber-600"></i> Dosis & Remedios Salud
         </button>
+        <button type="button" onclick="switchTab('phytosanitary')" id="tab-phytosanitary" class="tab-btn py-3 px-4 border-b-2 font-bold text-xs sm:text-sm flex items-center gap-2 border-transparent text-slate-500 hover:text-emerald-700 whitespace-nowrap">
+          <i class="fa-solid fa-shield-halved text-emerald-600"></i> Control Fitosanitario
+        </button>
         <button type="button" onclick="switchTab('gallery')" id="tab-gallery" class="tab-btn py-3 px-4 border-b-2 font-bold text-xs sm:text-sm flex items-center gap-2 border-transparent text-slate-500 hover:text-emerald-700 whitespace-nowrap">
           <i class="fa-solid fa-images text-emerald-600"></i> Álbum del Huerto
         </button>
@@ -320,7 +298,7 @@
           </div>
         </div>
 
-        <!-- MÓDULO DESTACADO: PROYECTO ESPECIAL (4 JARDINERAS / SEMILLEROS) -->
+        <!-- MÓDULO DESTACADO: PROYECTO ESPECIAL (4 JARDINERAS / SEMILLEROS CON ALERTAS Y FECHA EXACTA) -->
         <div class="bg-gradient-to-r from-amber-50/90 via-yellow-50/90 to-emerald-50/90 backdrop-blur-md border border-amber-200 rounded-2xl p-5 shadow-lg space-y-4">
           <div class="flex items-center gap-3 border-b border-amber-200/80 pb-3">
             <div class="bg-amber-500 text-slate-900 p-3 rounded-2xl font-black text-2xl flex items-center justify-center shadow-sm">
@@ -329,12 +307,12 @@
             <div>
               <span class="bg-amber-200 text-amber-900 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">Proyecto Especial</span>
               <h4 class="text-sm font-extrabold text-slate-800 mt-0.5">Control de las 4 Jardineras / Semilleros (con Alejandrito)</h4>
-              <p class="text-xs text-slate-600">Seguimiento independiente sincronizado en la nube.</p>
+              <p class="text-xs text-slate-600">Seguimiento independiente con fecha exacta de trasplante y alertas automáticas de colores.</p>
             </div>
           </div>
 
           <div class="space-y-3" id="semillerosContainer">
-            <!-- Se generan dinámicamente mediante JS -->
+            <!-- Se generan dinámicamente mediante JS las 4 jardineras -->
           </div>
         </div>
 
@@ -453,9 +431,9 @@
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
             <div>
               <h4 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                <i class="fa-solid fa-clock-rotate-left text-emerald-600"></i> Historial de Registros en la Nube
+                <i class="fa-solid fa-clock-rotate-left text-emerald-600"></i> Historial de Registros Guardados
               </h4>
-              <p class="text-xs text-slate-500">Gestiona, consulta, edita o elimina registros pasados sincronizados.</p>
+              <p class="text-xs text-slate-500">Gestiona, consulta, edita o elimina registros pasados.</p>
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto">
               <div class="relative flex-1 sm:flex-none">
@@ -581,16 +559,76 @@
         </div>
       </div>
 
+      <!-- NUEVO MÓDULO: CONTROL FITOSANITARIO Y APLICACIONES -->
+      <div id="content-phytosanitary" class="tab-content hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Formulario para Registrar Aplicación -->
+          <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
+            <h3 id="phytoFormTitle" class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-emerald-600"></i> Registrar Tratamiento Fitosanitario
+            </h3>
+            <form onsubmit="handleAddPhyto(event)" class="space-y-4">
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Fecha de Aplicación:</label>
+                <input type="date" id="phytoDate" required class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Producto / Ingrediente (ej. Curacron):</label>
+                <input type="text" id="phytoProduct" required placeholder="Ej: Curacron (profenofos)" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Plaga u Objetivo (ej. Arañas / Mosca blanca):</label>
+                <input type="text" id="phytoPest" required placeholder="Ej: Arañitas rojas y mosca blanca" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Plantas Tratadas:</label>
+                <input type="text" id="phytoPlants" required placeholder="Ej: Limón, mandarina, ají, durazno (menos maracuyá)" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Observaciones / Hora:</label>
+                <input type="text" id="phytoNotes" placeholder="Ej: Aplicado a las 5:30 PM para proteger abejas" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
+              </div>
+              
+              <div class="flex gap-2">
+                <button type="submit" id="phytoSubmitBtn" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-floppy-disk"></i> Guardar Tratamiento
+                </button>
+                <button type="button" id="phytoCancelBtn" onclick="cancelPhytoEdit()" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-3 rounded-xl transition text-xs" title="Cancelar edición">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Historial de Tratamientos Fitosanitarios -->
+          <div class="lg:col-span-2 space-y-6">
+            <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                  <i class="fa-solid fa-list text-emerald-600"></i> Historial de Control Fitosanitario
+                </h3>
+              </div>
+              <div id="phytoTableContainer" class="overflow-x-auto">
+                <!-- Se llena mediante JS -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
       <!-- TAB 6: ÁLBUM DEL HUERTO -->
       <div id="content-gallery" class="tab-content hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          <!-- Formulario para agregar / editar foto -->
+          <!-- Formulario para agregar / editar foto al álbum -->
           <div id="galleryFormCard" class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200 transition-all duration-300">
             <h3 id="galleryFormTitle" class="text-base font-bold text-slate-800 mb-2 flex items-center gap-2">
-              <i class="fa-solid fa-camera-retro text-emerald-600"></i> Agregar Foto al Álbum (Nube)
+              <i class="fa-solid fa-camera-retro text-emerald-600"></i> Agregar Foto al Álbum
             </h3>
             
+            <!-- Indicador visual cuando se está editando una foto específica -->
             <div id="galleryEditIndicator" class="hidden mb-4 p-2.5 bg-amber-100 border border-amber-300 rounded-xl text-amber-900 text-xs font-bold flex items-center justify-between">
               <span id="galleryEditIndicatorText"><i class="fa-solid fa-triangle-exclamation text-amber-600 mr-1"></i> Editando registro</span>
               <button type="button" onclick="cancelGalleryEdit()" class="text-amber-900 hover:text-rose-700 underline text-[11px]">Cancelar</button>
@@ -624,7 +662,7 @@
               
               <div class="flex gap-2">
                 <button type="submit" id="galSubmitBtn" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl shadow transition text-xs flex items-center justify-center gap-2">
-                  <i class="fa-solid fa-cloud-arrow-up"></i> Subir a la Nube
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Subir al Álbum
                 </button>
                 <button type="button" id="galCancelBtn" onclick="cancelGalleryEdit()" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-3 rounded-xl transition text-xs" title="Cancelar edición">
                   <i class="fa-solid fa-xmark"></i>
@@ -639,7 +677,7 @@
               <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 pb-4 border-b border-slate-100/80">
                 <div>
                   <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-images text-emerald-600"></i> Línea de Tiempo Visual en la Nube
+                    <i class="fa-solid fa-images text-emerald-600"></i> Línea de Tiempo Visual por Especie
                   </h3>
                   <p class="text-xs text-slate-500">Haz <strong>doble clic</strong> en cualquier foto para ampliarla.</p>
                 </div>
@@ -675,7 +713,7 @@
           <!-- Formulario de Registro de Cosecha -->
           <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
             <h3 id="harvestFormTitle" class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
-              <i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Cosecha (Nube)
+              <i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Cosecha / Rendimiento
             </h3>
             <form onsubmit="handleAddHarvest(event)" class="space-y-4">
               <div>
@@ -717,11 +755,13 @@
             </form>
           </div>
 
-          <!-- Listado y Resumen de Cosechas -->
+          <!-- Listado y Resumen de Productividad -->
           <div class="lg:col-span-2 space-y-6">
+            
+            <!-- Tarjeta Total Cosechado -->
             <div class="bg-gradient-to-r from-emerald-900/90 to-teal-900/90 backdrop-blur-md text-white p-6 rounded-3xl shadow-xl flex justify-between items-center border border-emerald-700/40">
               <div>
-                <span class="text-xs uppercase tracking-wider text-emerald-200 font-bold block mb-1">Total Histórico Cosechado (Nube)</span>
+                <span class="text-xs uppercase tracking-wider text-emerald-200 font-bold block mb-1">Total Histórico Cosechado</span>
                 <div id="totalHarvestAmount" class="text-3xl font-black text-amber-300">0.0 kg / und</div>
               </div>
               <div class="bg-emerald-800/80 p-4 rounded-2xl border border-emerald-600 text-emerald-100 text-2xl shadow-inner">
@@ -729,16 +769,18 @@
               </div>
             </div>
 
+            <!-- Tabla de Cosechas -->
             <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
               <div class="flex justify-between items-center mb-4">
                 <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                  <i class="fa-solid fa-list text-emerald-600"></i> Historial de Productividad Sincronizado
+                  <i class="fa-solid fa-list text-emerald-600"></i> Historial de Productividad por Temporada
                 </h3>
               </div>
               <div id="harvestTableContainer" class="overflow-x-auto">
                 <!-- Se llena mediante JS -->
               </div>
             </div>
+
           </div>
 
         </div>
@@ -748,10 +790,10 @@
       <div id="content-expenses" class="tab-content hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          <!-- Formulario de Gasto -->
+          <!-- Formulario de Registro de Gasto -->
           <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
             <h3 id="expFormTitle" class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
-              <i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Insumo / Gasto (Nube)
+              <i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Nuevo Insumo / Gasto
             </h3>
             <form onsubmit="handleAddExpense(event)" class="space-y-4">
               <div>
@@ -790,9 +832,11 @@
 
           <!-- Listado y Resumen Financiero -->
           <div class="lg:col-span-2 space-y-6">
+            
+            <!-- Tarjeta Total Invertido -->
             <div class="bg-gradient-to-r from-emerald-900/90 to-teal-900/90 backdrop-blur-md text-white p-6 rounded-3xl shadow-xl flex justify-between items-center border border-emerald-700/40">
               <div>
-                <span class="text-xs uppercase tracking-wider text-emerald-200 font-bold block mb-1">Inversión Total Acumulada (Nube)</span>
+                <span class="text-xs uppercase tracking-wider text-emerald-200 font-bold block mb-1">Inversión Total Acumulada</span>
                 <div id="totalExpensesAmount" class="text-3xl font-black text-amber-300">$0.00</div>
               </div>
               <div class="bg-emerald-800/80 p-4 rounded-2xl border border-emerald-600 text-emerald-100 text-2xl shadow-inner">
@@ -800,16 +844,18 @@
               </div>
             </div>
 
+            <!-- Tabla de Gastos -->
             <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
               <div class="flex justify-between items-center mb-4">
                 <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                  <i class="fa-solid fa-list text-emerald-600"></i> Historial de Inversiones Sincronizado
+                  <i class="fa-solid fa-list text-emerald-600"></i> Historial de Inversiones
                 </h3>
               </div>
               <div id="expensesTableContainer" class="overflow-x-auto">
                 <!-- Se llena mediante JS -->
               </div>
             </div>
+
           </div>
 
         </div>
@@ -846,14 +892,14 @@
               <h3 class="text-base font-bold text-slate-800 mb-4">Respaldos y Recuperación de Datos</h3>
               <div class="space-y-3.5 text-xs text-slate-600">
                 <div class="p-3 bg-white/70 rounded-xl border border-slate-200">
-                  <span class="font-bold text-slate-800 block mb-1"><i class="fa-solid fa-download text-emerald-600 mr-1"></i> 1. Descargar Respaldo JSON</span>
+                  <span class="font-bold text-slate-800 block mb-1"><i class="fa-solid fa-download text-emerald-600 mr-1"></i> 1. Descargar Respaldo</span>
                   <button type="button" onclick="exportBackupJSON()" class="w-full mt-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 shadow">
                     <i class="fa-solid fa-file-arrow-down"></i> Descargar Archivo (.json)
                   </button>
                 </div>
 
                 <div class="p-3 bg-white/70 rounded-xl border border-slate-200">
-                  <span class="font-bold text-slate-800 block mb-1"><i class="fa-solid fa-upload text-blue-600 mr-1"></i> 2. Restaurar Datos a la Nube</span>
+                  <span class="font-bold text-slate-800 block mb-1"><i class="fa-solid fa-upload text-blue-600 mr-1"></i> 2. Restaurar o Recuperar Datos</span>
                   <input type="file" id="importFile" accept=".json" onchange="importBackupJSON(event)" class="w-full mt-2 text-[11px] text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
                 </div>
               </div>
@@ -861,7 +907,7 @@
 
             <div class="mt-4 pt-3 border-t border-slate-100">
               <button type="button" onclick="clearAllData()" class="w-full bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold py-2 rounded-xl transition text-xs flex items-center justify-center gap-2 border border-rose-200">
-                <i class="fa-solid fa-trash-can"></i> Borrar Todos los Datos de la Nube
+                <i class="fa-solid fa-trash-can"></i> Borrar Todos los Datos del Sistema
               </button>
             </div>
           </div>
@@ -902,34 +948,32 @@
 
     <!-- Footer -->
     <footer class="bg-slate-900/90 backdrop-blur-md text-slate-400 py-6 text-center text-xs border-t border-slate-800">
-      <p>© 2026 El Jardín de Jorge • Sangolquí, Ecuador. Sistema sincronizado en la Nube Firebase.</p>
+      <p>© 2026 El Jardín de Jorge • Sangolquí, Ecuador. Sistema local seguro.</p>
     </footer>
 
   </div>
 
-  <!-- JavaScript Application Logic con Firebase Cloud Firestore -->
+  <!-- JavaScript Application Logic -->
   <script>
+    const STORAGE_KEY = 'huerto_jorge_daily_logs_v22';
     const OWNER_NAME_KEY = 'huerto_jorge_owner_profile';
     const AUTH_KEY = 'huerto_jorge_logged_in';
     const DB_USER_KEY = 'huerto_jorge_custom_user';
     const DB_PASS_KEY = 'huerto_jorge_custom_pass';
+    const SEMILLEROS_KEY = 'huerto_jorge_4_semilleros_data';
+    const EXPENSES_KEY = 'huerto_jorge_expenses_data_v2';
+    const HARVEST_KEY = 'huerto_jorge_harvest_data_v1';
+    const PHYTO_KEY = 'huerto_jorge_phytosanitary_data_v1';
+    const GALLERY_KEY = 'huerto_jorge_gallery_compressed_v11';
     const DARK_MODE_KEY = 'huerto_jorge_dark_mode_active';
     
     let isLargeText = false;
     let currentEditingExpenseId = null;
     let currentEditingHarvestId = null;
+    let currentEditingPhytoId = null;
     let currentEditingGalleryId = null;
     let currentLightboxIndex = 0;
     let currentFilteredGallery = [];
-
-    // Cache local de datos en la nube para agilizar la UI
-    let cloudCache = {
-      logs: {},
-      semilleros: {},
-      expenses: [],
-      harvest: [],
-      gallery: []
-    };
 
     function getStoredCredentials() {
       return {
@@ -1013,44 +1057,151 @@
       }
     }
 
-    // --- FUNCIONES DE SINCRONIZACIÓN CON FIRESTORE ---
-    async function saveCloudDoc(docId, dataObj) {
-      if (!window.isFirebaseConnected) return;
-      try {
-        const docRef = window.fbDocs.doc(window.fbDb, "huertoData", docId);
-        await window.fbDocs.setDoc(docRef, { payload: dataObj });
-      } catch (err) {
-        console.error("Error guardando en nube:", err);
+    // GESTIÓN DE CONTROL FITOSANITARIO
+    function getAllPhyto() {
+      try { return JSON.parse(localStorage.getItem(PHYTO_KEY)) || []; } catch(e) { return []; }
+    }
+
+    function saveAllPhyto(list) {
+      try { localStorage.setItem(PHYTO_KEY, JSON.stringify(list)); } catch(e) {}
+    }
+
+    function handleAddPhyto(e) {
+      e.preventDefault();
+      const date = document.getElementById('phytoDate').value;
+      const product = document.getElementById('phytoProduct').value.trim();
+      const pest = document.getElementById('phytoPest').value.trim();
+      const plants = document.getElementById('phytoPlants').value.trim();
+      const notes = document.getElementById('phytoNotes').value.trim();
+
+      if(!date || !product || !pest || !plants) return;
+
+      let phytoList = getAllPhyto();
+
+      if (currentEditingPhytoId !== null) {
+        phytoList = phytoList.map(item => {
+          if (item.id === currentEditingPhytoId) {
+            return { ...item, date, product, pest, plants, notes };
+          }
+          return item;
+        });
+        alert('¡Tratamiento fitosanitario actualizado con éxito!');
+        cancelPhytoEdit();
+      } else {
+        phytoList.push({ id: Date.now(), date, product, pest, plants, notes });
+        alert('¡Tratamiento fitosanitario registrado con éxito!');
+        document.getElementById('phytoProduct').value = '';
+        document.getElementById('phytoPest').value = '';
+        document.getElementById('phytoPlants').value = '';
+        document.getElementById('phytoNotes').value = '';
+        document.getElementById('phytoDate').value = new Date().toISOString().split('T')[0];
+      }
+
+      saveAllPhyto(phytoList);
+      renderPhytoUI();
+    }
+
+    function startEditPhyto(id) {
+      const phytoList = getAllPhyto();
+      const item = phytoList.find(i => i.id === id);
+      if (!item) return;
+
+      document.getElementById('phytoDate').value = item.date;
+      document.getElementById('phytoProduct').value = item.product;
+      document.getElementById('phytoPest').value = item.pest;
+      document.getElementById('phytoPlants').value = item.plants;
+      document.getElementById('phytoNotes').value = item.notes || '';
+
+      currentEditingPhytoId = id;
+      document.getElementById('phytoFormTitle').innerHTML = `<i class="fa-solid fa-pen-to-square text-amber-600"></i> Editar Tratamiento`;
+      document.getElementById('phytoSubmitBtn').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Actualizar Tratamiento`;
+      document.getElementById('phytoCancelBtn').classList.remove('hidden');
+
+      document.getElementById('phytoFormTitle').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function cancelPhytoEdit() {
+      currentEditingPhytoId = null;
+      document.getElementById('phytoFormTitle').innerHTML = `<i class="fa-solid fa-shield-halved text-emerald-600"></i> Registrar Tratamiento Fitosanitario`;
+      document.getElementById('phytoSubmitBtn').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Guardar Tratamiento`;
+      document.getElementById('phytoCancelBtn').classList.add('hidden');
+      document.getElementById('phytoProduct').value = '';
+      document.getElementById('phytoPest').value = '';
+      document.getElementById('phytoPlants').value = '';
+      document.getElementById('phytoNotes').value = '';
+      document.getElementById('phytoDate').value = new Date().toISOString().split('T')[0];
+    }
+
+    function deletePhyto(id) {
+      if(confirm('¿Estás seguro de eliminar este registro fitosanitario?')) {
+        let phytoList = getAllPhyto();
+        phytoList = phytoList.filter(item => item.id !== id);
+        saveAllPhyto(phytoList);
+        if (currentEditingPhytoId === id) cancelPhytoEdit();
+        renderPhytoUI();
       }
     }
 
-    async function loadCloudDoc(docId) {
-      if (!window.isFirebaseConnected) return null;
-      try {
-        const docRef = window.fbDocs.doc(window.fbDb, "huertoData", docId);
-        const docSnap = await window.fbDocs.getDoc(docRef);
-        if (docSnap.exists()) {
-          return docSnap.data().payload;
-        }
-      } catch (err) {
-        console.error("Error cargando de nube:", err);
+    function renderPhytoUI() {
+      const phytoList = getAllPhyto();
+      const container = document.getElementById('phytoTableContainer');
+
+      if(phytoList.length === 0) {
+        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay tratamientos fitosanitarios registrados todavía. Registra aplicaciones como el Curacron a la izquierda.</div>`;
+        return;
       }
-      return null;
+
+      phytoList.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      let html = `<table class="w-full text-left text-xs">
+                    <thead>
+                      <tr class="bg-slate-100/90 text-slate-700 font-bold border-b border-slate-200">
+                        <th class="p-2.5">Fecha</th>
+                        <th class="p-2.5">Producto</th>
+                        <th class="p-2.5">Plaga / Objetivo</th>
+                        <th class="p-2.5">Plantas Tratadas</th>
+                        <th class="p-2.5">Observaciones</th>
+                        <th class="p-2.5 text-center">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">`;
+
+      phytoList.forEach(item => {
+        html += `<tr class="hover:bg-slate-50/80 transition">
+                  <td class="p-2.5 font-bold text-slate-800">${item.date}</td>
+                  <td class="p-2.5 font-bold text-emerald-800">${item.product}</td>
+                  <td class="p-2.5 font-semibold text-slate-700">${item.pest}</td>
+                  <td class="p-2.5 text-slate-600">${item.plants}</td>
+                  <td class="p-2.5 text-slate-500">${item.notes || '<span class="italic text-slate-400">Sin notas</span>'}</td>
+                  <td class="p-2.5 text-center space-x-1">
+                    <button type="button" onclick="startEditPhyto(${item.id})" class="bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold px-2 py-1 rounded-lg border border-amber-200 transition" title="Editar">
+                      <i class="fa-solid fa-pen-to-square"></i> Editar
+                    </button>
+                    <button type="button" onclick="deletePhyto(${item.id})" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold px-2 py-1 rounded-lg border border-rose-200 transition" title="Eliminar">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </td>
+                </tr>`;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
     }
 
-    async function fetchAllCloudData() {
-      cloudCache.logs = (await loadCloudDoc("logs")) || {};
-      cloudCache.semilleros = (await loadCloudDoc("semilleros")) || {};
-      cloudCache.expenses = (await loadCloudDoc("expenses")) || [];
-      cloudCache.harvest = (await loadCloudDoc("harvest")) || [];
-      cloudCache.gallery = (await loadCloudDoc("gallery")) || [];
+    function getAllGallery() {
+      try {
+        return JSON.parse(localStorage.getItem(GALLERY_KEY)) || [];
+      } catch(e) { return []; }
     }
 
-    // --- GALERÍA ---
-    function getAllGallery() { return cloudCache.gallery; }
-    async function saveAllGallery(list) {
-      cloudCache.gallery = list;
-      await saveCloudDoc("gallery", list);
+    function saveAllGallery(list) {
+      try {
+        localStorage.setItem(GALLERY_KEY, JSON.stringify(list));
+        return true;
+      } catch(e) {
+        alert('Memoria local llena. Te recomendamos descargar un respaldo en formato JSON en la pestaña Configuración y luego borrar datos antiguos.');
+        return false;
+      }
     }
 
     function compressImageFile(file, maxWidth, quality, callback) {
@@ -1081,7 +1232,7 @@
       reader.readAsDataURL(file);
     }
 
-    async function handleGalleryUpload(e) {
+    function handleGalleryUpload(e) {
       e.preventDefault();
       const crop = document.getElementById('galCrop').value;
       const monthYear = document.getElementById('galMonthYear').value.trim();
@@ -1096,26 +1247,28 @@
         if (!existingItem) return;
 
         if (file) {
-          compressImageFile(file, 280, 0.3, async function(base64Str) {
+          compressImageFile(file, 280, 0.3, function(base64Str) {
             existingItem.crop = crop;
             existingItem.monthYear = monthYear;
             existingItem.desc = desc;
             existingItem.image = base64Str;
-            await saveAllGallery(gallery);
-            document.getElementById('galFilterCrop').value = 'ALL';
-            renderGalleryUI();
-            alert('¡Fotografía actualizada en la nube!');
-            cancelGalleryEdit();
+            if (saveAllGallery(gallery)) {
+              document.getElementById('galFilterCrop').value = 'ALL';
+              renderGalleryUI();
+              alert('¡Fotografía actualizada con éxito!');
+              cancelGalleryEdit();
+            }
           });
         } else {
           existingItem.crop = crop;
           existingItem.monthYear = monthYear;
           existingItem.desc = desc;
-          await saveAllGallery(gallery);
-          document.getElementById('galFilterCrop').value = 'ALL';
-          renderGalleryUI();
-          alert('¡Datos actualizados en la nube!');
-          cancelGalleryEdit();
+          if (saveAllGallery(gallery)) {
+            document.getElementById('galFilterCrop').value = 'ALL';
+            renderGalleryUI();
+            alert('¡Datos actualizados con éxito!');
+            cancelGalleryEdit();
+          }
         }
       } else {
         if (!file) {
@@ -1123,7 +1276,7 @@
           return;
         }
 
-        compressImageFile(file, 280, 0.3, async function(base64Str) {
+        compressImageFile(file, 280, 0.3, function(base64Str) {
           gallery.push({
             id: Date.now(),
             crop: crop,
@@ -1132,13 +1285,14 @@
             image: base64Str
           });
           
-          await saveAllGallery(gallery);
-          document.getElementById('galFilterCrop').value = 'ALL';
-          renderGalleryUI();
-          alert('¡Fotografía subida a la nube exitosamente!');
-          fileInput.value = '';
-          document.getElementById('galDesc').value = '';
-          document.getElementById('galMonthYear').value = '';
+          if (saveAllGallery(gallery)) {
+            document.getElementById('galFilterCrop').value = 'ALL';
+            renderGalleryUI();
+            alert('¡Fotografía subida al álbum exitosamente!');
+            fileInput.value = '';
+            document.getElementById('galDesc').value = '';
+            document.getElementById('galMonthYear').value = '';
+          }
         });
       }
     }
@@ -1172,25 +1326,26 @@
 
     function cancelGalleryEdit() {
       currentEditingGalleryId = null;
+      
       const indicator = document.getElementById('galleryEditIndicator');
       const formCard = document.getElementById('galleryFormCard');
       
       indicator.classList.add('hidden');
       formCard.classList.remove('border-amber-400', 'ring-2', 'ring-amber-300');
 
-      document.getElementById('galleryFormTitle').innerHTML = `<i class="fa-solid fa-camera-retro text-emerald-600"></i> Agregar Foto al Álbum (Nube)`;
-      document.getElementById('galSubmitBtn').innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Subir a la Nube`;
+      document.getElementById('galleryFormTitle').innerHTML = `<i class="fa-solid fa-camera-retro text-emerald-600"></i> Agregar Foto al Álbum`;
+      document.getElementById('galSubmitBtn').innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Subir al Álbum`;
       document.getElementById('galCancelBtn').classList.add('hidden');
       document.getElementById('galFileInput').value = '';
       document.getElementById('galDesc').value = '';
       document.getElementById('galMonthYear').value = '';
     }
 
-    async function deleteGalleryItem(id) {
-      if (confirm('¿Estás seguro de eliminar esta foto de la nube?')) {
+    function deleteGalleryItem(id) {
+      if (confirm('¿Estás seguro de eliminar esta foto del álbum?')) {
         let gallery = getAllGallery();
         gallery = gallery.filter(item => item.id !== id);
-        await saveAllGallery(gallery);
+        saveAllGallery(gallery);
         if (currentEditingGalleryId === id) cancelGalleryEdit();
         renderGalleryUI();
       }
@@ -1248,7 +1403,7 @@
       }
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 text-xs">No hay fotografías en el álbum de la nube para esta especie. Sube una foto a la izquierda.</div>`;
+        container.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 text-xs">No hay fotografías en el álbum para esta especie. Sube una foto a la izquierda para comenzar tu línea de tiempo visual.</div>`;
         return;
       }
 
@@ -1289,14 +1444,16 @@
       container.innerHTML = html;
     }
 
-    // --- COSECHAS ---
-    function getAllHarvest() { return cloudCache.harvest; }
-    async function saveAllHarvest(list) {
-      cloudCache.harvest = list;
-      await saveCloudDoc("harvest", list);
+    // GESTIÓN DE COSECHAS Y RENDIMIENTO
+    function getAllHarvest() {
+      try { return JSON.parse(localStorage.getItem(HARVEST_KEY)) || []; } catch(e) { return []; }
     }
 
-    async function handleAddHarvest(e) {
+    function saveAllHarvest(list) {
+      try { localStorage.setItem(HARVEST_KEY, JSON.stringify(list)); } catch(e) {}
+    }
+
+    function handleAddHarvest(e) {
       e.preventDefault();
       const date = document.getElementById('harvDate').value;
       const crop = document.getElementById('harvCrop').value;
@@ -1315,17 +1472,17 @@
           }
           return item;
         });
-        alert('¡Cosecha actualizada en la nube!');
+        alert('¡Cosecha actualizada con éxito!');
         cancelHarvestEdit();
       } else {
         harvestList.push({ id: Date.now(), date, crop, quantity, season, notes });
-        alert('¡Cosecha registrada en la nube!');
+        alert('¡Cosecha registrada con éxito!');
         document.getElementById('harvQuantity').value = '';
         document.getElementById('harvNotes').value = '';
         document.getElementById('harvDate').value = new Date().toISOString().split('T')[0];
       }
 
-      await saveAllHarvest(harvestList);
+      saveAllHarvest(harvestList);
       renderHarvestUI();
     }
 
@@ -1350,7 +1507,7 @@
 
     function cancelHarvestEdit() {
       currentEditingHarvestId = null;
-      document.getElementById('harvestFormTitle').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Cosecha (Nube)`;
+      document.getElementById('harvestFormTitle').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Cosecha / Rendimiento`;
       document.getElementById('harvSubmitBtn').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Guardar Cosecha`;
       document.getElementById('harvCancelBtn').classList.add('hidden');
       document.getElementById('harvQuantity').value = '';
@@ -1358,11 +1515,11 @@
       document.getElementById('harvDate').value = new Date().toISOString().split('T')[0];
     }
 
-    async function deleteHarvest(id) {
-      if(confirm('¿Estás seguro de eliminar este registro de cosecha de la nube?')) {
+    function deleteHarvest(id) {
+      if(confirm('¿Estás seguro de eliminar este registro de cosecha?')) {
         let harvestList = getAllHarvest();
         harvestList = harvestList.filter(item => item.id !== id);
-        await saveAllHarvest(harvestList);
+        saveAllHarvest(harvestList);
         if (currentEditingHarvestId === id) cancelHarvestEdit();
         renderHarvestUI();
       }
@@ -1378,7 +1535,7 @@
       totalEl.innerText = `${total.toFixed(1)} kg / und`;
 
       if(harvestList.length === 0) {
-        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay cosechas registradas en la nube todavía.</div>`;
+        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay cosechas registradas todavía. Añade limones, mandarinas o maracuyá a la izquierda.</div>`;
         return;
       }
 
@@ -1419,14 +1576,16 @@
       container.innerHTML = html;
     }
 
-    // --- GASTOS ---
-    function getAllExpenses() { return cloudCache.expenses; }
-    async function saveAllExpenses(list) {
-      cloudCache.expenses = list;
-      await saveCloudDoc("expenses", list);
+    // GESTIÓN DE GASTOS E INSUMOS
+    function getAllExpenses() {
+      try { return JSON.parse(localStorage.getItem(EXPENSES_KEY)) || []; } catch(e) { return []; }
     }
 
-    async function handleAddExpense(e) {
+    function saveAllExpenses(list) {
+      try { localStorage.setItem(EXPENSES_KEY, JSON.stringify(list)); } catch(e) {}
+    }
+
+    function handleAddExpense(e) {
       e.preventDefault();
       const date = document.getElementById('expDate').value;
       const category = document.getElementById('expCategory').value;
@@ -1444,17 +1603,17 @@
           }
           return item;
         });
-        alert('¡Gasto actualizado en la nube!');
+        alert('¡Gasto actualizado con éxito!');
         cancelExpenseEdit();
       } else {
         expenses.push({ id: Date.now(), date, category, desc, amount });
-        alert('¡Gasto registrado en la nube!');
+        alert('¡Gasto registrado con éxito!');
         document.getElementById('expDesc').value = '';
         document.getElementById('expAmount').value = '';
         document.getElementById('expDate').value = new Date().toISOString().split('T')[0];
       }
 
-      await saveAllExpenses(expenses);
+      saveAllExpenses(expenses);
       renderExpensesUI();
     }
 
@@ -1478,7 +1637,7 @@
 
     function cancelExpenseEdit() {
       currentEditingExpenseId = null;
-      document.getElementById('expFormTitle').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Insumo / Gasto (Nube)`;
+      document.getElementById('expFormTitle').innerHTML = `<i class="fa-solid fa-circle-plus text-emerald-600"></i> Registrar Nuevo Insumo / Gasto`;
       document.getElementById('expSubmitBtn').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Guardar Gasto`;
       document.getElementById('expCancelBtn').classList.add('hidden');
       document.getElementById('expDesc').value = '';
@@ -1486,11 +1645,11 @@
       document.getElementById('expDate').value = new Date().toISOString().split('T')[0];
     }
 
-    async function deleteExpense(id) {
-      if(confirm('¿Estás seguro de eliminar este registro de gasto de la nube?')) {
+    function deleteExpense(id) {
+      if(confirm('¿Estás seguro de eliminar este registro de gasto?')) {
         let expenses = getAllExpenses();
         expenses = expenses.filter(item => item.id !== id);
-        await saveAllExpenses(expenses);
+        saveAllExpenses(expenses);
         if (currentEditingExpenseId === id) cancelExpenseEdit();
         renderExpensesUI();
       }
@@ -1506,7 +1665,7 @@
       totalEl.innerText = `$${total.toFixed(2)}`;
 
       if(expenses.length === 0) {
-        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay gastos registrados en la nube todavía.</div>`;
+        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay gastos registrados todavía. Registra abonos, herramientas o semillas a la izquierda.</div>`;
         return;
       }
 
@@ -1545,7 +1704,7 @@
       container.innerHTML = html;
     }
 
-    // --- CLIMA ---
+    // MÓDULO DE CLIMA EN TIEMPO REAL (SANGOLQUÍ - OPEN-METEO)
     async function fetchSangolquiWeather() {
       const tempEl = document.getElementById('weatherTemp');
       const condEl = document.getElementById('weatherCondition');
@@ -1586,10 +1745,12 @@
       return codes[code] || 'Clima estable';
     }
 
-    // --- SEMILLEROS ---
     function renderSemillerosUI() {
       const container = document.getElementById('semillerosContainer');
-      let savedData = cloudCache.semilleros || {};
+      let savedData = {};
+      try {
+        savedData = JSON.parse(localStorage.getItem(SEMILLEROS_KEY)) || {};
+      } catch(e) { savedData = {}; }
 
       let html = '';
       const today = new Date();
@@ -1676,7 +1837,7 @@
       container.innerHTML = html;
     }
 
-    async function saveSemillerosData() {
+    function saveSemillerosData() {
       let data = {};
       for(let i = 1; i <= 4; i++) {
         data[i] = {
@@ -1686,19 +1847,25 @@
           estado: document.getElementById(`sem_est_${i}`).value
         };
       }
-      cloudCache.semilleros = data;
-      await saveCloudDoc("semilleros", data);
+      localStorage.setItem(SEMILLEROS_KEY, JSON.stringify(data));
     }
 
-    // --- RESPALDOS JSON ---
     function exportBackupJSON() {
+      let semillerosData = {};
+      try { semillerosData = JSON.parse(localStorage.getItem(SEMILLEROS_KEY)) || {}; } catch(e){}
+      let expensesData = getAllExpenses();
+      let harvestData = getAllHarvest();
+      let phytoData = getAllPhyto();
+      let galleryData = getAllGallery();
+
       const backupData = {
-        logs: cloudCache.logs,
+        logs: getAllLogs(),
         ownerProfile: localStorage.getItem(OWNER_NAME_KEY) || '',
-        semilleros: cloudCache.semilleros,
-        expenses: cloudCache.expenses,
-        harvest: cloudCache.harvest,
-        gallery: cloudCache.gallery,
+        semilleros: semillerosData,
+        expenses: expensesData,
+        harvest: harvestData,
+        phytosanitary: phytoData,
+        gallery: galleryData,
         exportDate: new Date().toISOString()
       };
       
@@ -1711,37 +1878,23 @@
       downloadAnchor.remove();
     }
 
-    async function importBackupJSON(event) {
+    function importBackupJSON(event) {
       const file = event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = async function(e) {
+      reader.onload = function(e) {
         try {
           const content = JSON.parse(e.target.result);
-          if (content.logs) {
-            cloudCache.logs = content.logs;
-            await saveCloudDoc("logs", content.logs);
-          }
+          if (content.logs) localStorage.setItem(STORAGE_KEY, JSON.stringify(content.logs));
           if (content.ownerProfile) localStorage.setItem(OWNER_NAME_KEY, content.ownerProfile);
-          if (content.semilleros) {
-            cloudCache.semilleros = content.semilleros;
-            await saveCloudDoc("semilleros", content.semilleros);
-          }
-          if (content.expenses) {
-            cloudCache.expenses = content.expenses;
-            await saveCloudDoc("expenses", content.expenses);
-          }
-          if (content.harvest) {
-            cloudCache.harvest = content.harvest;
-            await saveCloudDoc("harvest", content.harvest);
-          }
-          if (content.gallery) {
-            cloudCache.gallery = content.gallery;
-            await saveCloudDoc("gallery", content.gallery);
-          }
+          if (content.semilleros) localStorage.setItem(SEMILLEROS_KEY, JSON.stringify(content.semilleros));
+          if (content.expenses) localStorage.setItem(EXPENSES_KEY, JSON.stringify(content.expenses));
+          if (content.harvest) localStorage.setItem(HARVEST_KEY, JSON.stringify(content.harvest));
+          if (content.phytosanitary) localStorage.setItem(PHYTO_KEY, JSON.stringify(content.phytosanitary));
+          if (content.gallery) localStorage.setItem(GALLERY_KEY, JSON.stringify(content.gallery));
           
-          alert('¡Respaldo restaurado en la nube con éxito!');
+          alert('¡Respaldo y datos recuperados con éxito!');
           initAppSession();
           event.target.value = '';
         } catch (err) {
@@ -1751,16 +1904,16 @@
       reader.readAsText(file);
     }
 
-    async function clearAllData() {
-      if (confirm('¿Estás COMPLETAMENTE SEGURO de borrar todos los datos de la nube?')) {
-        cloudCache = { logs: {}, semilleros: {}, expenses: [], harvest: [], gallery: [] };
-        await saveCloudDoc("logs", {});
-        await saveCloudDoc("semilleros", {});
-        await saveCloudDoc("expenses", []);
-        await saveCloudDoc("harvest", []);
-        await saveCloudDoc("gallery", []);
+    function clearAllData() {
+      if (confirm('¿Estás COMPLETAMENTE SEGURO de borrar todos los datos? Se perderá todo el historial.')) {
+        localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem(OWNER_NAME_KEY);
-        alert('Se han borrado todos los datos de la nube.');
+        localStorage.removeItem(SEMILLEROS_KEY);
+        localStorage.removeItem(EXPENSES_KEY);
+        localStorage.removeItem(HARVEST_KEY);
+        localStorage.removeItem(PHYTO_KEY);
+        localStorage.removeItem(GALLERY_KEY);
+        alert('Se han borrado todos los datos.');
         logout();
       }
     }
@@ -1792,6 +1945,7 @@
       renderSemillerosUI();
       renderExpensesUI();
       renderHarvestUI();
+      renderPhytoUI();
       renderGalleryUI();
     }
 
@@ -1841,7 +1995,13 @@
       output.innerText = text;
     }
 
-    function getAllLogs() { return cloudCache.logs || {}; }
+    function getAllLogs() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; }
+    }
+
+    function saveAllLogs(data) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+    }
 
     function loadLogForSelectedDate() {
       const selectedDate = document.getElementById('selectedDate').value;
@@ -1862,7 +2022,7 @@
       updateProgress();
     }
 
-    async function saveCurrentDateState(showAlert = false) {
+    function saveCurrentDateState(showAlert = false) {
       const selectedDate = document.getElementById('selectedDate').value;
       if (!selectedDate) return;
       const logs = getAllLogs();
@@ -1882,11 +2042,10 @@
         percent: percent
       };
 
-      cloudCache.logs = logs;
-      await saveCloudDoc("logs", logs);
+      saveAllLogs(logs);
       updateProgress();
       renderHistoryTable();
-      if (showAlert) alert('¡Registro guardado en la nube exitosamente!');
+      if (showAlert) alert('¡Registro guardado exitosamente!');
     }
 
     function onTaskChange() { updateProgress(); saveCurrentDateState(false); }
@@ -1913,7 +2072,7 @@
       });
 
       if (filteredDates.length === 0) {
-        container.innerHTML = `<div class="text-center py-4 text-slate-400 text-xs">No hay registros guardados en la nube todavía.</div>`;
+        container.innerHTML = `<div class="text-center py-4 text-slate-400 text-xs">No hay registros guardados todavía.</div>`;
         return;
       }
 
@@ -1957,12 +2116,11 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    async function deleteLogFromHistory(dateStr) {
-      if (confirm(`¿Estás seguro de eliminar el registro del día ${dateStr} de la nube?`)) {
+    function deleteLogFromHistory(dateStr) {
+      if (confirm(`¿Estás seguro de eliminar el registro del día ${dateStr}?`)) {
         const logs = getAllLogs();
         delete logs[dateStr];
-        cloudCache.logs = logs;
-        await saveCloudDoc("logs", logs);
+        saveAllLogs(logs);
         renderHistoryTable();
         loadLogForSelectedDate();
       }
@@ -1979,6 +2137,12 @@
       activeBtn.classList.remove('border-transparent', 'text-slate-500');
       activeBtn.classList.add('border-emerald-600', 'text-emerald-800', 'bg-white/80', 'shadow-sm');
       if (tabId === 'health') calculateDose();
+      if (tabId === 'phytosanitary') {
+        if (currentEditingPhytoId === null) {
+          document.getElementById('phytoDate').value = new Date().toISOString().split('T')[0];
+        }
+        renderPhytoUI();
+      }
       if (tabId === 'gallery') renderGalleryUI();
       if (tabId === 'expenses') {
         if (currentEditingExpenseId === null) {
@@ -1997,7 +2161,7 @@
     function openPrintModal() {
       const logs = getAllLogs();
       const reportContainer = document.getElementById('modalReportContent');
-      let html = `<h3 class="font-bold mb-3">Resumen Histórico Sincronizado</h3>`;
+      let html = `<h3 class="font-bold mb-3">Resumen Histórico</h3>`;
       for (let d in logs) {
         html += `<p class="text-xs mb-2"><strong>${d}</strong> - Avance: ${logs[d].percent}% | Notas: ${logs[d].notes || 'Ninguna'}</p>`;
       }
@@ -2020,9 +2184,7 @@
       XLSX.writeFile(wb, "Huerto_Jorge.xlsx");
     }
 
-    async function initAppSession() {
-      // Descargamos primero todos los datos de Firebase Firestore
-      await fetchAllCloudData();
+    function initAppSession() {
       loadOwnerProfile();
       document.getElementById('selectedDate').value = new Date().toISOString().split('T')[0];
       loadLogForSelectedDate();
@@ -2030,6 +2192,7 @@
       fetchSangolquiWeather();
       renderExpensesUI();
       renderHarvestUI();
+      renderPhytoUI();
       renderGalleryUI();
     }
 
