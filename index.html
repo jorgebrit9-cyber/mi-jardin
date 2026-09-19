@@ -1011,7 +1011,7 @@
       document.getElementById('configNewPass').value = '';
     }
 
-    // Funciones de Respaldo JSON Local y Restauración Completa en Firestore
+    // Funciones de Respaldo JSON Local y Restauración Segura
     function downloadJSONBackup() {
       const backupData = {
         logs: cloudLogs,
@@ -1039,11 +1039,11 @@
           const data = JSON.parse(e.target.result);
           if (confirm('¿Restaurar y sincronizar todos los datos de este archivo JSON hacia Firebase?')) {
             // 1. Restaurar Semilleros
-            if (data.semilleros) {
+            if (data.semilleros && typeof data.semilleros === 'object') {
               await db.collection("huertoData_semilleros").doc("estado_actual").set(data.semilleros);
             }
             // 2. Restaurar Logs Diarios
-            if (data.logs) {
+            if (data.logs && typeof data.logs === 'object') {
               for (let dateKey in data.logs) {
                 await db.collection("huertoData_logs").doc(dateKey).set(data.logs[dateKey]);
               }
@@ -1052,36 +1052,40 @@
             if (Array.isArray(data.expenses)) {
               for (let item of data.expenses) {
                 let docId = item.id;
-                delete item.id;
-                if (docId) await db.collection("huertoData_expenses").doc(docId).set(item);
-                else await db.collection("huertoData_expenses").add(item);
+                let payload = { ...item };
+                delete payload.id;
+                if (docId) await db.collection("huertoData_expenses").doc(String(docId)).set(payload);
+                else await db.collection("huertoData_expenses").add(payload);
               }
             }
             // 4. Restaurar Cosechas
             if (Array.isArray(data.harvest)) {
               for (let item of data.harvest) {
                 let docId = item.id;
-                delete item.id;
-                if (docId) await db.collection("huertoData_harvest").doc(docId).set(item);
-                else await db.collection("huertoData_harvest").add(item);
+                let payload = { ...item };
+                delete payload.id;
+                if (docId) await db.collection("huertoData_harvest").doc(String(docId)).set(payload);
+                else await db.collection("huertoData_harvest").add(payload);
               }
             }
             // 5. Restaurar Fitosanitario
             if (Array.isArray(data.phyto)) {
               for (let item of data.phyto) {
                 let docId = item.id;
-                delete item.id;
-                if (docId) await db.collection("huertoData_phytosanitary").doc(docId).set(item);
-                else await db.collection("huertoData_phytosanitary").add(item);
+                let payload = { ...item };
+                delete payload.id;
+                if (docId) await db.collection("huertoData_phytosanitary").doc(String(docId)).set(payload);
+                else await db.collection("huertoData_phytosanitary").add(payload);
               }
             }
             // 6. Restaurar Galería
             if (Array.isArray(data.gallery)) {
               for (let item of data.gallery) {
                 let docId = item.id;
-                delete item.id;
-                if (docId) await db.collection("huertoData_gallery").doc(docId).set(item);
-                else await db.collection("huertoData_gallery").add(item);
+                let payload = { ...item };
+                delete payload.id;
+                if (docId) await db.collection("huertoData_gallery").doc(String(docId)).set(payload);
+                else await db.collection("huertoData_gallery").add(payload);
               }
             }
 
