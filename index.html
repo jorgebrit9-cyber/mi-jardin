@@ -827,7 +827,7 @@
         </div>
       </div>
 
-      <!-- TAB 10: CONFIGURACIÓN & RESPALDOS (RESTAURADO COMPLETO) -->
+      <!-- TAB 10: CONFIGURACIÓN & RESPALDOS -->
       <div id="content-config" class="tab-content hidden space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           
@@ -862,7 +862,7 @@
                 <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-900 font-semibold">
                   <i class="fa-solid fa-cloud text-emerald-600 mr-1"></i> Estado: Conectado a Firebase Cloud Firestore.
                 </div>
-                <p class="text-[11px] text-slate-500">Si lo deseas, también puedes descargar o restaurar una copia de seguridad local en formato JSON:</p>
+                <p class="text-[11px] text-slate-500">Descarga o restaura tu copia de seguridad local en formato JSON:</p>
                 <div class="flex gap-2 pt-2">
                   <button type="button" onclick="downloadJSONBackup()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-2 px-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 shadow">
                     <i class="fa-solid fa-download"></i> Descargar JSON
@@ -1011,7 +1011,7 @@
       document.getElementById('configNewPass').value = '';
     }
 
-    // Funciones de Respaldo JSON Local
+    // Funciones de Respaldo JSON Local y Restauración Completa en Firestore
     function downloadJSONBackup() {
       const backupData = {
         logs: cloudLogs,
@@ -1037,12 +1037,58 @@
       reader.onload = async function(e) {
         try {
           const data = JSON.parse(e.target.result);
-          if (confirm('¿Restaurar los datos desde este archivo JSON a Firebase?')) {
-            if (data.semilleros) await db.collection("huertoData_semilleros").doc("estado_actual").set(data.semilleros);
-            alert('¡Respaldo JSON restaurado con éxito!');
+          if (confirm('¿Restaurar y sincronizar todos los datos de este archivo JSON hacia Firebase?')) {
+            // 1. Restaurar Semilleros
+            if (data.semilleros) {
+              await db.collection("huertoData_semilleros").doc("estado_actual").set(data.semilleros);
+            }
+            // 2. Restaurar Logs Diarios
+            if (data.logs) {
+              for (let dateKey in data.logs) {
+                await db.collection("huertoData_logs").doc(dateKey).set(data.logs[dateKey]);
+              }
+            }
+            // 3. Restaurar Gastos
+            if (Array.isArray(data.expenses)) {
+              for (let item of data.expenses) {
+                let docId = item.id;
+                delete item.id;
+                if (docId) await db.collection("huertoData_expenses").doc(docId).set(item);
+                else await db.collection("huertoData_expenses").add(item);
+              }
+            }
+            // 4. Restaurar Cosechas
+            if (Array.isArray(data.harvest)) {
+              for (let item of data.harvest) {
+                let docId = item.id;
+                delete item.id;
+                if (docId) await db.collection("huertoData_harvest").doc(docId).set(item);
+                else await db.collection("huertoData_harvest").add(item);
+              }
+            }
+            // 5. Restaurar Fitosanitario
+            if (Array.isArray(data.phyto)) {
+              for (let item of data.phyto) {
+                let docId = item.id;
+                delete item.id;
+                if (docId) await db.collection("huertoData_phytosanitary").doc(docId).set(item);
+                else await db.collection("huertoData_phytosanitary").add(item);
+              }
+            }
+            // 6. Restaurar Galería
+            if (Array.isArray(data.gallery)) {
+              for (let item of data.gallery) {
+                let docId = item.id;
+                delete item.id;
+                if (docId) await db.collection("huertoData_gallery").doc(docId).set(item);
+                else await db.collection("huertoData_gallery").add(item);
+              }
+            }
+
+            alert('¡Respaldo JSON restaurado y sincronizado con la nube con éxito!');
           }
         } catch (err) {
-          alert('Error al leer el archivo JSON: ' + err.message);
+          alert('Error al restaurar el archivo JSON: ' + err.message);
         }
       };
       reader.readAsText(file);
