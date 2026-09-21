@@ -648,8 +648,8 @@
                 </select>
               </div>
               <div>
-                <label class="text-xs font-bold text-slate-700 block mb-1">Horas de Trabajo (Aproximado):</label>
-                <input type="number" step="0.5" id="truperHours" required placeholder="Ej: 1.5" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-amber-500">
+                <label class="text-xs font-bold text-slate-700 block mb-1">Horas de Trabajo (Ej: 0.1 para 5 min, o 1.5):</label>
+                <input type="number" step="0.05" min="0.05" id="truperHours" required placeholder="Ej: 0.1" class="w-full bg-slate-50/80 border border-slate-300 rounded-xl px-3.5 py-2 text-xs font-semibold outline-none focus:ring-2 focus:ring-amber-500">
               </div>
               <div>
                 <label class="text-xs font-bold text-slate-700 block mb-1">Observaciones / Insumos:</label>
@@ -1276,7 +1276,7 @@
       const hours = parseFloat(document.getElementById('truperHours').value) || 0;
       const notes = document.getElementById('truperNotes').value.trim();
 
-      if(!date || !type || hours < 0) return;
+      if(!date || !type || hours <= 0) return;
 
       try {
         if (currentEditingTruperId !== null) {
@@ -1332,25 +1332,26 @@
       const oilStatusEl = document.getElementById('truperOilStatus');
 
       let totalHours = 0;
-      let lastOilChangeHours = 0;
-      let hasOilChange = false;
+      let hoursSinceOil = 0;
 
-      cloudTruper.forEach(item => {
+      // Ordenar por fecha cronológica para calcular correctamente el ciclo de aceite desde el último cambio
+      let sortedForCalc = [...cloudTruper].sort((a, b) => new Date(a.date) - new Date(b.date));
+      sortedForCalc.forEach(item => {
         totalHours += (item.hours || 0);
         if (item.type === 'Cambio de Aceite de Motor') {
-          hasOilChange = true;
-          lastOilChangeHours = totalHours;
+          hoursSinceOil = 0; // Se reinicia el contador de aceite
+        } else {
+          hoursSinceOil += (item.hours || 0);
         }
       });
 
       totalHoursEl.innerText = `${totalHours.toFixed(1)} hrs`;
-      let hoursSinceOil = hasOilChange ? (totalHours - lastOilChangeHours) : totalHours;
-      let hoursLeftForOil = Math.max(0, 25 - hoursSinceOil);
+      let hoursLeftForOil = Math.max(0, 50 - (hoursSinceOil % 50));
 
-      if (hoursLeftForOil === 0) {
-        oilStatusEl.innerHTML = `<span class="text-rose-400 font-black animate-pulse">¡Cambio de aceite URGENTE!</span>`;
+      if (hoursSinceOil >= 50 || hoursLeftForOil === 0) {
+        oilStatusEl.innerHTML = `<span class="text-rose-400 font-black animate-pulse">¡Cambio de aceite URGENTE (Meta 50h)!</span>`;
       } else {
-        oilStatusEl.innerText = `Faltan ~${hoursLeftForOil.toFixed(1)} hrs (Meta: 25h)`;
+        oilStatusEl.innerText = `Faltan ~${hoursLeftForOil.toFixed(1)} hrs (Meta: 50h)`;
       }
 
       if(cloudTruper.length === 0) {
@@ -2131,7 +2132,7 @@
         document.getElementById('mainApp').classList.add('flex');
         initAppSession();
       } else {
-        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('mainApp').classList.add('hidden');
       }
     }
