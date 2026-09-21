@@ -541,6 +541,7 @@
               <label class="text-xs font-bold text-emerald-200 block mb-2">Producto o Remedio:</label>
               <select id="calcProduct" onchange="calculateDose()" class="w-full bg-slate-800/90 border border-emerald-700 rounded-xl p-3 text-sm font-semibold text-white outline-none">
                 <option value="mezcla_raiz">Tratamiento Raíz (Topsin M + Enraizador)</option>
+                <option value="curacron">Curacron (Insecticida contra plagas)</option>
                 <option value="solamina">Solamina + Jabón (Trébol)</option>
               </select>
             </div>
@@ -602,10 +603,16 @@
 
           <div class="lg:col-span-2 space-y-6">
             <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
-              <div class="flex justify-between items-center mb-4">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 pb-3 border-b border-slate-100/80">
                 <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
                   <i class="fa-solid fa-list text-emerald-600"></i> Historial Cloud Firestore (Sincronizado)
                 </h3>
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                  <label for="phytoFilterProduct" class="text-xs font-bold text-slate-600 whitespace-nowrap">Filtrar Producto:</label>
+                  <select id="phytoFilterProduct" onchange="renderPhytoUI()" class="bg-slate-50/80 border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-700 outline-none focus:ring-2 focus:ring-emerald-500 w-full sm:w-44">
+                    <option value="ALL">Todos los productos</option>
+                  </select>
+                </div>
               </div>
               <div id="phytoTableContainer" class="overflow-x-auto"></div>
             </div>
@@ -1011,7 +1018,6 @@
       document.getElementById('configNewPass').value = '';
     }
 
-    // Funciones de Respaldo JSON Local y Restauración Segura
     function downloadJSONBackup() {
       const backupData = {
         logs: cloudLogs,
@@ -1038,17 +1044,14 @@
         try {
           const data = JSON.parse(e.target.result);
           if (confirm('¿Restaurar y sincronizar todos los datos de este archivo JSON hacia Firebase?')) {
-            // 1. Restaurar Semilleros
             if (data.semilleros && typeof data.semilleros === 'object') {
               await db.collection("huertoData_semilleros").doc("estado_actual").set(data.semilleros);
             }
-            // 2. Restaurar Logs Diarios
             if (data.logs && typeof data.logs === 'object') {
               for (let dateKey in data.logs) {
                 await db.collection("huertoData_logs").doc(dateKey).set(data.logs[dateKey]);
               }
             }
-            // 3. Restaurar Gastos
             if (Array.isArray(data.expenses)) {
               for (let item of data.expenses) {
                 let docId = item.id;
@@ -1058,7 +1061,6 @@
                 else await db.collection("huertoData_expenses").add(payload);
               }
             }
-            // 4. Restaurar Cosechas
             if (Array.isArray(data.harvest)) {
               for (let item of data.harvest) {
                 let docId = item.id;
@@ -1068,7 +1070,6 @@
                 else await db.collection("huertoData_harvest").add(payload);
               }
             }
-            // 5. Restaurar Fitosanitario
             if (Array.isArray(data.phyto)) {
               for (let item of data.phyto) {
                 let docId = item.id;
@@ -1078,7 +1079,6 @@
                 else await db.collection("huertoData_phytosanitary").add(payload);
               }
             }
-            // 6. Restaurar Galería
             if (Array.isArray(data.gallery)) {
               for (let item of data.gallery) {
                 let docId = item.id;
@@ -1137,6 +1137,7 @@
       db.collection("huertoData_phytosanitary").onSnapshot(snapshot => {
         cloudPhyto = [];
         snapshot.forEach(doc => { cloudPhyto.push({ id: doc.id, ...doc.data() }); });
+        updatePhytoFilterOptions();
         renderPhytoUI();
       });
 
@@ -1229,13 +1230,30 @@
       }
     }
 
+    function updatePhytoFilterOptions() {
+      const select = document.getElementById('phytoFilterProduct');
+      if (!select) return;
+      const currentVal = select.value;
+      const products = [...new Set(cloudPhyto.map(i => i.product))].sort();
+      let html = `<option value="ALL">Todos los productos</option>`;
+      products.forEach(p => {
+        html += `<option value="${p}" ${currentVal === p ? 'selected' : ''}>${p}</option>`;
+      });
+      select.innerHTML = html;
+    }
+
     function renderPhytoUI() {
       const container = document.getElementById('phytoTableContainer');
-      if(cloudPhyto.length === 0) {
-        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay tratamientos registrados en la nube todavía.</div>`;
+      const filterSelect = document.getElementById('phytoFilterProduct');
+      const selectedProduct = filterSelect ? filterSelect.value : 'ALL';
+
+      let filtered = selectedProduct === 'ALL' ? cloudPhyto : cloudPhyto.filter(i => i.product === selectedProduct);
+
+      if(filtered.length === 0) {
+        container.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">No hay tratamientos registrados en la nube para este filtro.</div>`;
         return;
       }
-      let sorted = [...cloudPhyto].sort((a, b) => new Date(b.date) - new Date(a.date));
+      let sorted = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
       let html = `<table class="w-full text-left text-xs">
                     <thead>
                       <tr class="bg-slate-100/90 text-slate-700 font-bold border-b border-slate-200">
@@ -1861,6 +1879,8 @@
       const output = document.getElementById('calcOutput');
       if (prod === "mezcla_raiz") {
         output.innerText = `${Math.round(vol * (35 / 19))}g de Topsin M + ${Math.round(vol * (45 / 19))}ml de Enraizador en ${vol}L de agua.`;
+      } else if (prod === "curacron") {
+        output.innerText = `${Math.round(vol * (20 / 19))}ml a ${Math.round(vol * (25 / 19))}ml de Curacron en ${vol}L de agua.`;
       } else if (prod === "solamina") {
         output.innerText = `${Math.round(vol * 3.15)}ml de Solamina en ${vol}L de agua.`;
       }
@@ -1893,7 +1913,6 @@
         document.getElementById('mainApp').classList.add('flex');
         initAppSession();
       } else {
-        // CORREGIDO: Mostrar la pantalla de login cuando no esté autenticado
         document.getElementById('loginScreen').classList.remove('hidden');
         document.getElementById('mainApp').classList.add('hidden');
       }
