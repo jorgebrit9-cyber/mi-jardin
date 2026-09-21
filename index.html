@@ -69,7 +69,7 @@
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col">
 
-  <!-- PANTALLA DE INICIO DE SESIÓN (LOGIN) -->
+  <!-- PANTALLA DE INICIO DE SESIÓN (LOGIN) - VISIBLE POR DEFECTO -->
   <div id="loginScreen" class="fixed inset-0 bg-emerald-950/90 backdrop-blur-xl z-50 flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl max-w-md w-full p-8 shadow-2xl border border-emerald-100 text-center relative overflow-hidden">
       <div class="absolute -right-10 -top-10 opacity-5 text-emerald-900 pointer-events-none">
@@ -115,8 +115,8 @@
     </div>
   </div>
 
-  <!-- APLICACIÓN PRINCIPAL -->
-  <div id="mainApp" class="flex-col flex-1 flex hidden">
+  <!-- APLICACIÓN PRINCIPAL (OCULTA POR DEFECTO) -->
+  <div id="mainApp" class="flex-col flex-1 hidden">
 
     <!-- Header / Navigation Bar -->
     <header class="bg-emerald-800/90 backdrop-blur-md text-white shadow-lg sticky top-0 z-40 border-b border-emerald-700/50">
@@ -1072,8 +1072,9 @@
       if (user === creds.user && pass === creds.pass) {
         localStorage.setItem(AUTH_KEY, 'true');
         document.getElementById('loginScreen').classList.add('hidden');
-        document.getElementById('mainApp').classList.remove('hidden');
-        document.getElementById('mainApp').classList.add('flex');
+        const mainApp = document.getElementById('mainApp');
+        mainApp.classList.remove('hidden');
+        mainApp.classList.add('flex');
         initAppSession();
       } else {
         err.classList.remove('hidden');
@@ -2118,8 +2119,8 @@
 
     function logout() {
       localStorage.removeItem(AUTH_KEY);
-      document.getElementById('mainApp').classList.add('hidden');
       document.getElementById('mainApp').classList.remove('flex');
+      document.getElementById('mainApp').classList.add('hidden');
       document.getElementById('loginScreen').classList.remove('hidden');
     }
 
@@ -2127,11 +2128,12 @@
       checkDarkModePreference();
       if (localStorage.getItem(AUTH_KEY) === 'true') {
         document.getElementById('loginScreen').classList.add('hidden');
-        document.getElementById('mainApp').classList.remove('hidden');
-        document.getElementById('mainApp').classList.add('flex');
+        const mainApp = document.getElementById('mainApp');
+        mainApp.classList.remove('hidden');
+        mainApp.classList.add('flex');
         initAppSession();
       } else {
-        document.getElementById('loginScreen').classList.remove('hidden'); // MUESTRA PANTALLA LOGIN
+        document.getElementById('loginScreen').classList.remove('hidden');
         document.getElementById('mainApp').classList.add('hidden');
       }
     }
