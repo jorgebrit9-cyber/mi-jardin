@@ -1334,12 +1334,11 @@
       let totalHours = 0;
       let hoursSinceOil = 0;
 
-      // Ordenar por fecha cronológica para calcular correctamente el ciclo de aceite desde el último cambio
       let sortedForCalc = [...cloudTruper].sort((a, b) => new Date(a.date) - new Date(b.date));
       sortedForCalc.forEach(item => {
         totalHours += (item.hours || 0);
         if (item.type === 'Cambio de Aceite de Motor') {
-          hoursSinceOil = 0; // Se reinicia el contador de aceite
+          hoursSinceOil = 0;
         } else {
           hoursSinceOil += (item.hours || 0);
         }
@@ -1494,7 +1493,7 @@
                   <td class="p-2.5 text-slate-500">${item.notes || '<span class="italic text-slate-400">Sin notas</span>'}</td>
                   <td class="p-2.5 text-center space-x-1">
                     <button type="button" onclick="startEditPhyto('${item.id}')" class="bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold px-2 py-1 rounded-lg border border-amber-200 transition"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button type="button" onclick="deletePhyto('${item.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold px-2 py-1 rounded-lg border border-rose-200 transition"><i class="fa-solid fa-trash-can"></i></button>
+                    <button type="button" onclick="deletePhyto('${item.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold px-2 py-1 rounded-lg border border-emerald-200 transition"><i class="fa-solid fa-trash-can"></i></button>
                   </td>
                 </tr>`;
       });
