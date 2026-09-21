@@ -2131,7 +2131,7 @@
         document.getElementById('mainApp').classList.add('flex');
         initAppSession();
       } else {
-        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('loginScreen').classList.remove('hidden'); // MUESTRA PANTALLA LOGIN
         document.getElementById('mainApp').classList.add('hidden');
       }
     }
